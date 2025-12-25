@@ -1,32 +1,30 @@
-let score = 0;
-let answer = 0;
+const data = [
+  { name: "Domino", photo: "images/1.png" },
+  { name: "Alex", photo: "images/2.png" },
+  { name: "Sarah", photo: "images/3.png" }
+];
 
-function newQuestion() {
-  const a = Math.floor(Math.random() * 10);
-  const b = Math.floor(Math.random() * 10);
-  answer = a + b;
+let index = 0;
+let results = [];
 
-  document.getElementById("game").innerHTML = `
-    <p>${a} + ${b} = ?</p>
-    <input id="rep" type="number">
-    <br><br>
-    <button onclick="check()">Valider</button>
-  `;
+function answer(know) {
+  results.push({
+    name: data[index].name,
+    know: know
+  });
+
+  console.log(results); // tu verras les réponses dans la console
 }
 
-function check() {
-  const user = Number(document.getElementById("rep").value);
+function restart() {
+  index++;
 
-  if (user === answer) {
-    score++;
-    document.getElementById("score").textContent = score;
-    newQuestion();
-  } else {
-    alert("Perdu ! Score : " + score);
-    score = 0;
-    document.getElementById("score").textContent = score;
-    newQuestion();
+  if (index >= data.length) {
+    alert("Sondage terminé !");
+    console.log("Résultats finaux :", results);
+    return;
   }
-}
 
-newQuestion();
+  document.getElementById("photo").src = data[index].photo;
+  document.getElementById("name").textContent = data[index].name;
+}
