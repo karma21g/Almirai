@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Jeu de réflexion</title>
+
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #141e30, #243b55);
+    font-family: Arial, sans-serif;
+    color: white;
+  }
+
+  .container {
+    background: rgba(0, 0, 0, 0.35);
+    padding: 30px;
+    border-radius: 16px;
+    text-align: center;
+    width: 280px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+
+  h1 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  .score {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+
+  #game p {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  input {
+    width: 120px;
+    padding: 8px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+  }
+
+  button {
+    margin-top: 12px;
+    padding: 10px 22px;
+    font-size: 18px;
+    border-radius: 20px;
+    border: none;
+    background: #ffcc00;
+    cursor: pointer;
+  }
+</style>
+<style>
+  .result {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 15px 0;
+    transition: color 0.5s;
+  }
+
+  .red {
+    color: #ff4d4d;
+  }
+
+  .yellow {
+    color: #ffcc00;
+  }
+
+  .green {
+    color: #4cd964;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Compatibilité</h1>
+  <div id="game"></div>
+</div>
+
+  <script>
+  let name1 = "";
+  let name2 = "";
+
+  // Étape 1 : premier nom
+  function askFirstName() {
+    document.getElementById("game").innerHTML = `
+      <p>Entre le premier nom :</p>
+      <input id="input1" type="text">
+      <br><br>
+      <button onclick="saveFirstName()">Continuer</button>
+    `;
+  }
+
+  function saveFirstName() {
+    name1 = document.getElementById("input1").value.trim();
+    if (name1 === "") return alert("Entre un nom");
+
+    askSecondName();
+  }
+
+  // Étape 2 : second nom
+  function askSecondName() {
+    document.getElementById("game").innerHTML = `
+      <p>Entre le second nom :</p>
+      <input id="input2" type="text">
+      <br><br>
+      <button onclick="showResult()">Voir le résultat</button>
+    `;
+  }
+
+  // Étape 3 : résultat
+  function showResult() {
+    name2 = document.getElementById("input2").value.trim();
+    if (name2 === "") return alert("Entre un nom");
+
+    const score = Math.floor(Math.random() * 101);
+
+    document.getElementById("game").innerHTML = `
+      <p>${name1} ❤️ ${name2}</p>
+      <h2>${score} %</h2>
+      <button onclick="askFirstName()">Recommencer</button>
+    `;
+  }
+
+  // Lancement du jeu
+  askFirstName();
+</script>
+
+</body>
+</html>
